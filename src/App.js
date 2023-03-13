@@ -3,11 +3,11 @@ import List from "./List";
 import { useState, useEffect } from "react";
 
 function App() {
-  let [obj, setObj] = useState([]);
+  let [posts, setPosts] = useState([]);
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
-      .then((data) => {console.log(data);  setObj(data) });
+      .then((data) => {console.log(data);  setPosts(data) });
   }, []);
 
   function postReq() {
@@ -23,16 +23,24 @@ function App() {
       },
     })
     .then((response) => response.json())
-    .then((data) => setObj(data))
   }
 
-  let listItems = obj.map((responseObj) => (
+  function deletePost(post) {
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: 'DELETE',
+    })
+  }
+
+
+console.log(posts)
+  let listItems = posts.map((post) => (
     <List
-      key = {responseObj.id}
-      userid={responseObj.userId}
-      id={responseObj.id}
-      title={responseObj.title}
-      body={responseObj.body}
+      onDelete = {() => deletePost(post)}
+      key = {post.id}
+      userid={post.userId}
+      id={post.id}
+      title={post.title}
+      body={post.body}
     />
   ));
 
