@@ -8,6 +8,7 @@ function List(props) {
       <td > {props.id}</td>
       <td >{props.title}</td>
       <td >{props.body}</td>
+      <td><button className='btn btn-primary'>Edit</button></td>
       <td><button className='btn btn-danger' onClick={props.onDelete}>Delete</button></td>
     </tr>
   )
